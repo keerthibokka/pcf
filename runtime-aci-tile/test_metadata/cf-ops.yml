@@ -1,0 +1,19 @@
+---
+# Add another interface to certain components and connect them to apic-infra network
+- type: replace
+  path: /instance_groups/name=diego_cell/networks/name=default/default?
+  value: [dns, gateway]
+- type: replace
+  path: /instance_groups/name=diego_cell/networks/-
+  value:
+      name: apic-infra
+# Enable IPv6 for some components
+- type: replace
+  path: /instance_groups/name=diego_cell/env?/bosh?/ipv6?
+  value:
+     enable: true
+# Make route_emitter register direct routes to containers
+- type: replace
+  path: /instance_groups/name=diego_cell/jobs/name=route_emitter/properties/register_direct_instance_routes?
+  value: true
+

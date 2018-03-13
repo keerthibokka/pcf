@@ -1,0 +1,13 @@
+---
+# define apic-infra network
+- type: replace
+  path: /networks/-
+  value:
+     name: apic-infra
+     type: manual
+     subnets:
+     - range: 169.254.0.0/16
+       gateway: 169.254.0.1
+       azs: [AZ1]
+       cloud_properties:
+          name: ((apic_dvs))/((apic_infra_portgroup))
